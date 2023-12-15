@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template , make_response,Response
+from flask import Flask,request,jsonify,render_template , make_response,Response
 import json
 import pickle
 import os
@@ -11,7 +11,6 @@ model_file_path = "diabetes-model.pkl"
 if current_dir != "web-server":
     model_file_path = "web-server/" + model_file_path
 
-print("model_file_path: ", model_file_path)
 loaded_model = pickle.load(open(model_file_path,"rb"))
 
 app = Flask(__name__)
@@ -23,10 +22,10 @@ def predict():
         inputs = json_input['features']
         results = loaded_model.predict(inputs).tolist()
         # print(results, type(results))
-        return json.dumps(results), 200
+        return jsonify(results), 200
     except Exception as es:
         print(es)
-        return json.dumps({
+        return jsonify({
             "application error message": "Invalid input",
             "system error message": str(es)
         }), 400
