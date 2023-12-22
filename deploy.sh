@@ -14,19 +14,21 @@ if [ "$arg" == "help" ]; then
 fi
 
 if [ "$arg" == "all" ] || [ "$arg" == "model" ]; then
+  git pull
   python3 -m venv env &&
   source env/bin/activate
   source env/Scripts/activate
   pip3 install -r RnD/requirements.txt &&
-  python3 RnD/model-build.py
+  python RnD/model-build.py
 fi
 
 if [ "$arg" == "all" ] || [ "$arg" == "web" ]; then
+  git pull
   python3 -m venv env &&
   source env/bin/activate
   source env/Scripts/activate
   pip3 install -r web-server/requirements.txt &&
-  python3 web-server/server.py
+  python web-server/server.py
 fi
 
 if [ $arg != "all" ] && [ $arg != "model" ] && [ $arg != "web" ] && [ $arg != "help" ]; then
