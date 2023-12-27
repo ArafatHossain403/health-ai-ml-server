@@ -14,8 +14,8 @@ if current_dir != "web-server":
 loaded_model = pickle.load(open(model_file_path,"rb"))
 
 app = Flask(__name__)
-@app.route('/predict',methods =['POST'])
-def predict():
+@app.route('/predict-diabetes',methods =['POST'])
+def predict_diabetes():
     try:
         posted_message = request.data
         json_input = json.loads(posted_message)
@@ -26,8 +26,8 @@ def predict():
     except Exception as es:
         print(es)
         return jsonify({
-            "application error message": "Invalid input",
-            "system error message": str(es)
+            "application_error_message": "Invalid input",
+            "system_error_message": str(es)
         }), 400
 
 if __name__ =='__main__':
